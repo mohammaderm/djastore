@@ -1,0 +1,513 @@
+{% extends "base.html" %}
+{% load static %}
+{% block content %}
+<style>
+  .nav-pills .nav-link.active, .nav-pills .show > .nav-link {
+    color: blue !important;
+    background-color: white;
+  }
+</style>
+
+
+
+
+<div class="row">
+
+
+  <div class="col-3" style="margin-left: 0px !important;padding-left: 0px !important;">
+
+    <div class="p-3 m-3 text-center bg-white border" style="margin-bottom: -14px !important;">
+      <img class="text-center m-1" src="{% static 'img/prof.svg' %}" alt="">
+      <div class="p-2 m-1" style="font-size:14px;">{{ user.get_full_name }}</div>
+      <div class="p-2 m-1 text-secondary" style="font-size:14px;">{{ user.phone }}</div>
+      <div class="p-2 m-1 text-secondary" style="font-size:14px;">{{user.email}}</div>
+    </div>
+
+    <div class="nav flex-column nav-pills p-3 m-3 border bg-white" id="v-pills-tab" role="tablist" aria-orientation="vertical">
+
+      <a class="nav-link p-2 m-1 active text-dark" id="v-pills-myorders-tab" data-toggle="pill" href="#v-pills-myorders" role="tab" aria-controls="v-pills-myorders" aria-selected="true" style="font-size:14px;"><i class="fa fa-list ml-3" aria-hidden="true" style="font-size:17px;"></i>
+      سفارشات من</a>
+
+      <a class="nav-link p-2 m-1 text-dark" id="v-pills-like-tab" data-toggle="pill" href="#v-pills-like" role="tab" aria-controls="v-pills-like" aria-selected="false" style="font-size:14px;"><i class='far fa-heart ml-3' style="font-size:17px;"></i>مورد علاقه</a>
+
+      <a class="nav-link p-2 m-1 text-dark" id="v-pills-bookmark-tab" data-toggle="pill" href="#v-pills-bookmark" role="tab" aria-controls="v-pills-bookmark" aria-selected="false" style="font-size:14px;"><i class="fa fa-bookmark-o ml-3" style="font-size:17px;"></i>نشان شده ها</a>
+
+      <a class="nav-link p-2 m-1 text-dark" id="v-pills-cumments-tab" data-toggle="pill" href="#v-pills-cumments" role="tab" aria-controls="v-pills-cumments" aria-selected="false" style="font-size:14px;"><i class='far fa-comment-alt ml-3' style="font-size:17px;"></i>نظرات</a>
+
+      <a class="nav-link p-2 m-1 text-dark" id="v-pills-location-tab" data-toggle="pill" href="#v-pills-location" role="tab" aria-controls="v-pills-location" aria-selected="false" style="font-size:14px;"><i class='fas fa-map-marker-alt ml-3' style="font-size:17px;"></i>نشانی ها</a>
+
+
+      <a class="nav-link p-2 m-1 text-dark" id="v-pills-message-tab" data-toggle="pill" href="#v-pills-message" role="tab" aria-controls="v-pills-message" aria-selected="false" style="font-size:14px;"><i class='far fa-comment-dots ml-3' style="font-size:17px;"></i>پیام های من</a>
+
+
+      <a class="nav-link p-2 m-1 text-dark" id="v-pills-profile-tab" data-toggle="pill" href="#v-pills-profile" role="tab" aria-controls="v-pills-profile" aria-selected="false" style="font-size:14px;"><i class="fa fa-user ml-3" aria-hidden="true" style="font-size:17px;"></i>
+      اطلاعات حساب کاربری</a>
+
+
+      <a class="nav-link p-2 m-1 text-dark" id="v-pills-exite-tab" data-toggle="pill" href="#v-pills-exite" role="tab" aria-controls="v-pills-exite" aria-selected="false" style="font-size:14px;"><i class="fa fa-sign-out ml-3" aria-hidden="true" style="font-size:17px;"></i>
+      خروج</a>
+
+
+
+    </div>
+
+  </div>
+
+
+  <div class="col-9" style="margin-right: 0px !important;padding-right: 0px !important;">
+    <div class="tab-content p-3 m-3 border bg-white" id="v-pills-tabContent">
+
+      <div class="tab-pane fade show active" id="v-pills-myorders" role="tabpanel" aria-labelledby="v-pills-myorders-tab" style="min-height: 649px;">
+        ...
+      </div>
+
+      <div class="tab-pane fade" id="v-pills-like" role="tabpanel" aria-labelledby="v-pills-like-tab" style="min-height: 649px;">
+        <div class="container">
+          <div class="p-2 mb-2 border-bottom">علاقه مندی های من</div>
+          <div id="userlike" class="row">
+
+
+
+          </div>
+        </div>
+      </div>
+
+      <div class="tab-pane fade" id="v-pills-bookmark" role="tabpanel" aria-labelledby="v-pills-bookmark-tab" style="min-height: 649px;">
+        <div class="container">
+          <div class="p-2 mb-2 border-bottom">علاقه مندی های من</div>
+          <div id="userbookmark" class="row">
+          </div>
+        </div>
+      </div>
+
+      <div class="tab-pane fade" id="v-pills-cumments" role="tabpanel" aria-labelledby="v-pills-cumments-tab" style="min-height: 649px;">
+        <div class="container">
+          <div class="p-2 mb-2 border-bottom">
+            نظرات من
+          </div>
+          <div id="usercumment" class="row">
+
+
+          </div>
+        </div>
+      </div>
+
+      <div class="tab-pane fade" id="v-pills-location" role="tabpanel" aria-labelledby="v-pills-location-tab" style="min-height: 649px;">
+        <div class="container">
+          <div class="p-2 mb-2 border-bottom">
+            نشانی های من
+          </div>
+
+          <div class="p-2 addlocation border text-center" style="font-size:15px;cursor:pointer;width:10rem;float:left;border-radius:5px;"><i class="fa fa-map-marker ml-2 text-danger"></i>افزودن نشانی جدید</div>
+          
+          <div id="locations" class="row"></div>
+
+          <div id="addlocation" class="mt-1" style="display:none;">
+            <textarea id="address-val" class="form-control w-50 p-3" placeholder="Required example textarea"></textarea>
+            <div class="text-white p-1 m-2 bg-success text-center submit-location" style="font-size:14px;width:7rem;cursor:pointer;border-radius:5px;">ثبت ادرس</div>
+          </div>
+
+        </div>
+      </div>
+
+      <div class="tab-pane fade" id="v-pills-message" role="tabpanel" aria-labelledby="v-pills-message-tab" style="min-height: 649px;">
+        <div class="container">
+          <div class="p-2 border-bottom mb-2">پیغام های من</div>
+        </div>
+      </div>
+
+
+      <div class="tab-pane fade" id="v-pills-profile" role="tabpanel" aria-labelledby="v-pills-profile-tab" style="min-height: 649px;">
+        <div class="container">
+          <div class="p-2 border-bottom mb-2">اطلاعات شخصی</div>
+          <div class="row">
+            <div class="col-6 border-left">
+
+              <div class="border-bottom p-3">
+                <div style="font-size:15px;">نام:</div>
+                <div id="first_name" class="p-2 text-secondary" style="font-size:14px;"></div>
+                <div id="--first_name" style="display:none;"><input id="val-first_name" class="form-control" type="text" placeholder="Default input">
+                  <div id="submit-first_name" class="submit p-1 m-1 border text-center bg-success text-white" style="font-size:13px;border-radius:7px;cursor:pointer;">ثبت ویرایش</div>
+                </div>
+                <div id="edit-first_name" class="const text-left" style="font-size:20px;"><i class="fa fa-pencil-square-o text-danger" aria-hidden="true"></i>
+                </div>
+                <div id="-first_name"></div>
+              </div>
+
+
+              <div class="border-bottom p-3">
+                <div style="font-size:15px;">نام خانوادگی:</div>
+                <div id="last_name" class="p-2 text-secondary" style="font-size:14px;"></div>
+                <div id="--last_name" style="display:none;"><input id="val-last_name" class="form-control" type="text" placeholder="Default input">
+                  <div id="submit-last_name" class="submit p-1 m-1 border text-center bg-success text-white" style="font-size:13px;border-radius:7px;cursor:pointer;">ثبت ویرایش</div>
+                </div>
+                <div id="edit-last_name" class="const text-left" style="font-size:20px;"><i class="fa fa-pencil-square-o text-danger" aria-hidden="true"></i>
+                </div>
+                <div id="-last_name"></div>
+              </div>
+
+
+              <div class="border-bottom p-3">
+                <div style="font-size:15px;">شماره تلفن همراه:</div>
+                <div id="phone" class="p-2 text-secondary" style="font-size:14px;"></div>
+                <div id="--phone" style="display:none;"><input id="val-phone" class="form-control" type="text" placeholder="Default input">
+                  <div id="submit-phone" class="submit p-1 m-1 border text-center bg-success text-white" style="font-size:13px;border-radius:7px;cursor:pointer;">ثبت ویرایش</div>
+                </div>
+                <div id="edit-phone" class="const text-left" style="font-size:20px;"><i class="fa fa-pencil-square-o text-danger" aria-hidden="true"></i>
+                </div>
+                <div id="-phone"></div>
+              </div>
+
+
+              <div class="border-bottom p-3">
+                <div style="font-size:15px;">تاریخ تولد:</div>
+                <div id="birthday" class="p-2 text-secondary" style="font-size:14px;"></div>
+                <div id="--birthday" style="display:none;"><input id="val-birthday" class="form-control" type="text" placeholder="Default input">
+                  <div id="submit-birthday" class="submit p-1 m-1 border text-center bg-success text-white" style="font-size:13px;border-radius:7px;cursor:pointer;">ثبت ویرایش</div>
+                </div>
+                <div id="edit-birthday" class="const text-left" style="font-size:20px;"><i class="fa fa-pencil-square-o text-danger" aria-hidden="true"></i>
+                </div>
+                <div id="-birthday"></div>
+              </div>
+
+
+              <div class="p-3">
+                <div style="font-size:15px;">شماره کارت جهت مرجوعی وجه:</div>
+                <div id="paycard" class="p-2 text-secondary" style="font-size:14px;"></div>
+                <div id="--paycard" style="display:none;"><input id="val-paycard" class="form-control" type="text" placeholder="Default input">
+                  <div id="submit-paycard" class="submit p-1 m-1 border text-center bg-success text-white" style="font-size:13px;border-radius:7px;cursor:pointer;">ثبت ویرایش</div>
+                </div>
+                <div id="edit-paycard"  class="const text-left" style="font-size:20px;"><i class="fa fa-pencil-square-o text-danger" aria-hidden="true"></i>
+                </div>
+                <div id="-paycard"></div>
+              </div>
+
+
+            </div>
+
+
+            <div class="col-6">
+
+
+              <div class="border-bottom p-3">
+                <div style="font-size:15px;">کد ملی</div>
+                <div id="national_code" class="p-2 text-secondary" style="font-size:14px;"></div>
+                <div id="--national_code" style="display:none;"><input id="val-national_code" class="form-control" type="text" placeholder="Default input">
+                  <div id="submit-national_code" class="submit p-1 m-1 border text-center bg-success text-white" style="font-size:13px;border-radius:7px;cursor:pointer;">ثبت ویرایش</div>
+                </div>
+                <div id="edit-national_code" class="const text-left" style="font-size:20px;"><i class="fa fa-pencil-square-o text-danger" aria-hidden="true"></i>
+                </div>
+                <div id="-national_code"></div>
+              </div>
+
+
+              <div class="border-bottom p-3">
+                <div style="font-size:15px;">پست الکتریکی</div>
+                <div id="email" class="p-2 text-secondary" style="font-size:14px;"></div>
+                <div id="--email" style="display:none;"><input id="val-email" class="form-control" type="text" placeholder="Default input">
+                  <div id="submit-email" class="submit p-1 m-1 border text-center bg-success text-white" style="font-size:13px;border-radius:7px;cursor:pointer;">ثبت ویرایش</div>
+                </div>
+                <div id="edit-email" class="const text-left" style="font-size:20px;"><i class="fa fa-pencil-square-o text-danger" aria-hidden="true"></i>
+                </div>
+                <div id="-email"></div>
+              </div>
+
+
+              <div class="border-bottom p-3">
+                <div style="font-size:15px;">شغل</div>
+                <div id="job" class="p-2 text-secondary" style="font-size:14px;"></div>
+                <div id="--job" style="display:none;"><input id="val-job" class="form-control" type="text" placeholder="Default input">
+                  <div id="submit-job" class="submit p-1 m-1 border text-center bg-success text-white" style="font-size:13px;border-radius:7px;cursor:pointer;">ثبت ویرایش</div>
+                </div>
+                <div id="edit-job" class="const text-left" style="font-size:20px;"><i class="fa fa-pencil-square-o text-danger" aria-hidden="true"></i>
+                </div>
+                <div id="-job"></div>
+              </div>
+
+
+              <div class="p-3">
+                <div style="font-size:15px;">رمز عبور</div>
+                <div id="password" class="p-2 text-secondary" style="font-size:14px;"></div>
+                <div id="--password" style="display:none;"><input id="val-password" class="form-control" type="text" placeholder="Default input">
+                  <div id="submit-password" class="submit p-1 m-1 border text-center bg-success text-white" style="font-size:13px;border-radius:7px;cursor:pointer;">ثبت ویرایش</div>
+                </div>
+                <div id="edit-password" class="const text-left" style="font-size:20px;"><i class="fa fa-pencil-square-o text-danger" aria-hidden="true"></i>
+                </div>
+                <div id="-password"></div>
+              </div>
+
+
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="tab-pane fade" id="v-pills-exite" role="tabpanel" aria-labelledby="v-pills-exite-tab">...</div>
+
+    </div>
+  </div>
+
+
+
+</div>
+
+
+
+{% endblock content %}
+{% block js %}
+{{ block.super }}
+
+
+<script>
+  $('#v-pills-profile-tab').on('click', function(event) {  
+    $('#first_name').html('');
+    $('#last_name').html('');
+    $('#phone').html('');
+    $('#birthday').html('');
+    $('#paycard').html('');
+    $('#national_code').html('');
+    $('#email').html('');
+    $('#job').html('');
+    $('#password').html('');
+    $.ajax({
+      url: "{% url 'account:userinfo' %}",
+      type: "GET",
+      headers: {
+        "Authorization": "Token"+" "+window.localStorage.getItem('token'),
+      },
+      success: function(data) {
+        if (data) { 
+          $('#first_name').append(data.first_name)
+          $('#last_name').append(data.last_name)
+          $('#phone').append(data.phone)
+          $('#birthday').append(data.birthday)
+          $('#paycard').append(data.birthday)
+          $('#national_code').append(data.national_code)
+          $('#email').append(data.email)
+          $('#job').append(data.job)
+          $('#password').append(data.password)
+        }
+      },
+      error: function(jqXHR, textStatus, errorThrown) {
+        console.log(textStatus, errorThrown, jqXHR);
+      }
+    });
+  });
+  $(".const").click(function(event){
+    event.preventDefault();
+    $("#--"+$(this).attr('id').split('-')[1]).fadeToggle();
+  });
+  $(".submit").click(function(event){
+    event.preventDefault();
+    $.post({
+      url: "http://127.0.0.1:8000/edit/",
+      headers: {
+        "Authorization": "Token"+" "+window.localStorage.getItem('token'),
+      },
+      data: {
+        'key':$(this).attr('id').split('-')[1],
+        'value':$('#val-'+$(this).attr('id').split('-')[1]).val(),
+      },
+      success: function(response) {
+        console.log(response);
+        if (response.status == true) {
+          $("#--"+response.key).fadeOut();
+          $("#"+response.key).html('').append(response.value);
+          $("#-"+response.key).addClass('text-success').append('ویرایش با موفقیت انجام شد.').fadeOut(1800)
+        }
+      },
+      error: function(jqXHR, textStatus, errorThrown) {
+        console.log(textStatus, errorThrown, jqXHR);
+      }
+    });
+  });
+  $('#v-pills-location-tab').on('click', function(event) {  
+    $('#locations').html('');
+    $.ajax({
+      url: "{% url 'account:userlocation' %}",
+      type: "GET",
+      headers: {
+        "Authorization": "Token"+" "+window.localStorage.getItem('token'),
+      },
+      success: function(data) {
+        if (data) { 
+          $.each(data, function(){
+            html=`<div class="col-6">
+            <div class="border-bottom p-3">
+            <div style="font-size:15px;">نشانی من:</div>
+            <div class="p-2 text-secondary" style="font-size:14px;">${$(this)[0]['location']}</div>
+            </div> 
+            </div>`
+            $('#locations').append(html);
+          });
+        }
+      },
+      error: function(jqXHR, textStatus, errorThrown) {
+        console.log(textStatus, errorThrown, jqXHR);
+      }
+    });
+  });
+  $(".addlocation").click(function(event){
+    event.preventDefault();
+    $("#addlocation").fadeToggle();
+  });
+  $(".submit-location").click(function(event){
+    event.preventDefault();
+    $.post({
+      url: "http://127.0.0.1:8000/addlocation/",
+      headers: {
+        "Authorization": "Token"+" "+window.localStorage.getItem('token'),
+      },
+      data: {
+        'location':$('#address-val').val(),
+      },
+      success: function(response) {
+        console.log(response);
+        if (response.status == true) {
+          $("#addlocation").fadeOut();
+          $('#locations').html('');
+          $.ajax({
+            url: "{% url 'account:userlocation' %}",
+            type: "GET",
+            headers: {
+              "Authorization": "Token"+" "+window.localStorage.getItem('token'),
+            },
+            success: function(data) {
+              if (data) { 
+                $.each(data, function(){
+                  html=`<div class="col-6">
+                  <div class="border-bottom p-3">
+                  <div style="font-size:15px;">نشانی من:</div>
+                  <div class="p-2 text-secondary" style="font-size:14px;">${$(this)[0]['location']}</div>
+                  </div> 
+                  </div>`
+                  $('#locations').append(html);
+                });
+              }
+            },
+            error: function(jqXHR, textStatus, errorThrown) {
+              console.log(textStatus, errorThrown, jqXHR);
+            }
+          });
+        }
+      },
+      error: function(jqXHR, textStatus, errorThrown) {
+        console.log(textStatus, errorThrown, jqXHR);
+      }
+    });
+  });
+  $("#v-pills-like-tab").click(function(event){
+    event.preventDefault();
+    $('#userlike').html('');
+    $.ajax({
+      url: "{% url 'account:getuserlike' %}",
+      type: "GET",
+      headers: {
+        "Authorization": "Token"+" "+window.localStorage.getItem('token'),
+      },
+      success: function(data) {
+        if (data) { 
+          $.each(data, function(){
+            var url = "{% url 'app_base:productdetails' 123 %}";
+            var id = $(this)[0]['product']
+            url = url.replace('123', id);
+            var urlc = "{% url 'app_base:productlist' 123 %}";
+            var idc = $(this)[0]['catid']
+            urlc = urlc.replace('123', idc);
+            html=`<div class="col-4 border p-2">
+            <a class="text-decoration-none" href="${url}">
+            <img class="p-2" src="${$(this)[0]['product_img']}" width="100" alt="">
+            <span class="text-left p-2 ml-2" style="float:left;"><div class="text-danger" style="text-decoration:line-through;font-family: vazir-thin;
+            ">250,000 تومان</div><div class="text-body">150,000 تومان</div></span>
+            <div class="p-2 mr-2 text-body" style="font-size:14px;">${$(this)[0]['product_name']}</div>
+            <div class="text-secondary text-left p-2 ml-2" style="font-size:13px;">${$(this)[0]['product_name_eng']}</div>
+            <div class="p-2 mr-2" style="font-size:15px;"><span class="ml-2 text-body"><i class="fa fa-bars text-danger ml-2" style="font-size:14px;"></i>دسته بندی:</span><a href="${urlc}"><span class="text-primary" style="font-size:13px;">${$(this)[0]['cat_name']}</span></a></div>
+            </a></div>`
+            $('#userlike').append(html);
+          });
+        }
+      },
+      error: function(jqXHR, textStatus, errorThrown) {
+        console.log(textStatus, errorThrown, jqXHR);
+      }
+    });
+  });
+  $("#v-pills-bookmark-tab").click(function(event){
+    event.preventDefault();
+    $('#userbookmark').html('');
+    $.ajax({
+      url: "{% url 'account:getuserbookmark' %}",
+      type: "GET",
+      headers: {
+        "Authorization": "Token"+" "+window.localStorage.getItem('token'),
+      },
+      success: function(data) {
+        if (data) { 
+          $.each(data, function(){
+            var url = "{% url 'app_base:productdetails' 123 %}";
+            var id = $(this)[0]['product']
+            url = url.replace('123', id);
+
+            var urlc = "{% url 'app_base:productlist' 123 %}";
+            var idc = $(this)[0]['catid']
+            urlc = urlc.replace('123', idc);
+            html=`<div class="col-4 border p-2">
+            <a class="text-decoration-none" href="${url}">
+            <img class="p-1" src="${$(this)[0]['product_img']}" width="100" alt="">
+            <span class="text-left p-2 ml-2" style="float:left;"><div class="text-danger" style="text-decoration:line-through;font-family: vazir-thin;
+            ">250,000 تومان</div><div class="text-body">150,000 تومان</div></span>
+            <div class="p-2 mr-2 text-body" style="font-size:14px;">${$(this)[0]['product_name']}</div>
+            <div class="text-secondary text-left p-2 ml-2" style="font-size:13px;">${$(this)[0]['product_name_eng']}</div>
+            <div class="p-2 mr-2" style="font-size:15px;"><span class="ml-2 text-body"><i class="fa fa-bars text-danger ml-2" style="font-size:14px;"></i>دسته بندی:</span><a href="${urlc}"><span class="text-primary" style="font-size:13px;">${$(this)[0]['cat_name']}</span></a></div>
+            </a></div>`
+            $('#userbookmark').append(html);
+          });
+        }
+      },
+      error: function(jqXHR, textStatus, errorThrown) {
+        console.log(textStatus, errorThrown, jqXHR);
+      }
+    });
+  });
+  $("#v-pills-cumments-tab").click(function(event){
+    event.preventDefault();
+    $('#usercumment').html('');
+    $.ajax({
+      url: "{% url 'account:getcummentuser' %}",
+      type: "GET",
+      headers: {
+        "Authorization": "Token"+" "+window.localStorage.getItem('token'),
+      },
+      success: function(data) {
+        if (data) { 
+          $.each(data, function(){
+            var url = "{% url 'app_base:productdetails' 123 %}";
+            var id = $(this)[0]['product']
+            url = url.replace('123', id);
+            html=`<div id="validcumment" class="col-6 border p-4">
+            <a class="p-1 m-1" href="${url}" style="font-size:14px;">${$(this)[0]['product_name']}</a>
+            <div class="text-body p-1 m-1" style="font-size:17px;">${$(this)[0]['title']}</div>
+            <div class="text-dark p-1 m-1" style="font-size:13px;">${$(this)[0]['value']}</div>
+            <div class="p-2 m-1">
+            <div class="p-1 m-1" style="font-size:13px;"> در تاریخ ${$(this)[0]['publish_date']} </div>
+            <div class="p-1 m-1" style="font-size:13px;">این نظر برای 580 نفر مفید بوده است</div>
+            </div>
+            </div>`
+            $('#usercumment').append(html);
+          });
+        }
+      },
+      error: function(jqXHR, textStatus, errorThrown) {
+        console.log(textStatus, errorThrown, jqXHR);
+      }
+    });
+  });
+
+
+
+
+</script>
+
+{% endblock js %}
+
+

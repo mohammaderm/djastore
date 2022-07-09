@@ -1,0 +1,401 @@
+{% load static %}
+
+<!doctype html>
+<html lang="en">
+<head>
+  <!-- Required meta tags -->
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
+
+  <link rel="stylesheet" href="{% static 'css/style.css' %}">
+
+  <title>فروشگاه اینترنتی store</title>
+</head>
+<body>
+
+  {% block nav %}
+
+  <nav class="navbar sticky-top navbar-expand-lg navbar-light bg-light">
+    <a class="navbar-brand" href="{% url 'app_base:home' %}">Store
+      <img src="{% static 'img/store.svg'%}" width="30" height="30" alt="" loading="lazy"></a>
+      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <form class="form-inline my-2 my-lg-0 mr-4">
+        <input id="search" class="form-control mr-sm-2" type="search" placeholder="جستجو در بین محصولات ..." aria-label="Search" style="width: 573px;">
+        <div id="searchresults"></div>
+      </form>
+      <div class="collapse navbar-collapse" id="navbarNav" style="direction:ltr">
+        <ul class="navbar-nav">
+          <li class="nav-item active">
+            {% if request.user.is_authenticated%}
+            <div class="dropdown nav-link">
+              <a class="dropdown-toggle" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                <i class='far fa-user text-body ml-1' style="font-size:20px;"></i>
+              </a>
+              <div class="dropdown-menu shadow bg-white rounded" aria-labelledby="dropdownMenuButton" style="min-width:12rem;">
+
+                <div class="p-1 m-2 text-right border-bottom">
+                  <div class="p-2 m-1"><img src="{% static 'img/prof.svg' %}" alt=""></div>
+                  <div class="m-1" style="font-size:14px;">{{ user.get_full_name }}</div>
+                  <div class="p-1 m-2 text-dark" style="font-size:12px;">{{request.user}}</div>
+                </div>
+
+                <a class="text-body p-1 m-2 text-right text-decoration-none" href="{% url 'account:dashboard_page' %}" style="float: right;font-size:12px;"><i class='far fa-user text-success ml-2'></i>پروفایل کاربری</a>
+
+
+                <a class="text-body p-1 m-2 text-decoration-none" id="logout" href="#" style="float: right; font-size:12px;"><i class='fa fa-sign-out text-danger ml-2'></i>خروج از حساب</a>
+
+
+              </div>
+            </div>
+            {% else %}
+            <a class="nav-link login" href="{% url 'account:register_page' %}"><i class='far fa-user text-secondary ml-2' style="font-size:20px;"></i>ورود به حساب کاربری<span class="sr-only">(current)</span></a>
+            {% endif %} 
+          </li>
+          <li class="nav-item active">
+            <div class="dropdown nav-link">
+
+              <a class="dropdown-toggle" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" href="#"><i class='fas fa-cart-plus text-primary ml-2 mr-3' style="font-size:20px;"></i></a>
+
+              <div class="dropdown-menu shadow bg-white rounded" aria-labelledby="dropdownMenuButton" style="min-width:25rem;">
+
+                <div class="p-2 m-1 text-right border-bottom">
+                  <span class="p-1 m-1 text-dark" style="font-size:13px;"><span id="counter"> </span> کالا  </span>
+                  <a class="p-1 m-1" href="{% url 'Sale:cart_page' %}" style="font-size:13px;float:left;cursor:pointer;">مشاهده سبد خرید<i class='fas fa-angle-left mr-1'></i></a>
+                </div>
+                <div id="cart-product" class="p-2 m-1 text-right border-bottom">
+
+
+                </div>
+
+                <div class="p-1 m-1">
+                  <span class="p-2 m-2 text-right" style="font-size:13px;">جمع کل: <span id="prices">250,000 </span>تومان</span>
+                  <span class="border p-2 m-1 bg-success text-white" style="float:left;font-size:14px;cursor:pointer;border-radius:5px;">ثبت سفارش</span>
+                </div>
+
+              </div>
+            </div>
+          </li>
+        </ul>
+      </div>
+    </nav>
+
+
+
+
+
+    <nav class="navbar navbar-expand-lg navbar-light bg-primary">
+
+      <ul class="navbar-nav">
+        <li class="nav-item active">
+          <div class="dropdown">
+            <a class="nav-link dropdown-toggle text-white navsize" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i class='fas fa-bars text-white ml-1' style="font-size:13px;"></i>
+              دسته بندی
+            </a>
+
+            <div class="dropdown-menu catdrop shadow p-3 mb-5 bg-white rounded" aria-labelledby="dropdownMenuLink">
+
+              <div class="row">
+                <div class="col-3">
+                  <div class="nav flex-column nav-pills border-left" id="v-pills-tab" role="tablist" aria-orientation="vertical">
+
+                  </div>
+                </div>
+
+                <div class="col-9">
+                  <div class="tab-content" id="v-pills-tabContent">
+
+
+
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link text-white navsize" href="#"><i class='fas fa-award text-white ml-1' style="font-size:13px;"></i>تخفیفات و پیشنهاد ها</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link text-white navsize" href="#"><i class='fas fa-headset text-white ml-1' style="font-size:13px;"></i>پشتیبانی انلاین</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link text-white navsize" href="#" tabindex="-1" aria-disabled="true"><i class='fas fa-newspaper text-white ml-1' style="font-size:13px;"></i>بلاگ</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link text-white navsize" href="#" tabindex="-1" aria-disabled="true"><i class='fas fa-phone-square text-white ml-1' style="font-size:13px;"></i>ارتباط با ما</a>
+        </li>
+      </ul>
+
+    </nav>
+    {% endblock nav %}
+
+    {% block content %}{% endblock content %}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    {% block footer %}
+    <div class="">
+      <div class="text-center border p-3 mb-0 bg-primary text-white">بازگشت به بالا<i class='fas fa-angle-up mr-2' style='font-size:24px'></i></div>
+    </div>
+
+    <div class="footer mt-3 border-top" style="background-color: white;">
+      <div class="container">
+        <div class="col-md-12">
+          <div class="row">
+            <div class="col-md-3 text-center p-2 mt-5">
+          <!-- <p>تلفن تماس: 6415</p>
+            <p>ادرس: ستارخان جنب پمپ بنزین ...</p> -->
+            <div class="p-2" style="font-size: 14px;"><a class="text-secondary" href="">بازگشن کالا</a></div>
+            <div class="p-2" style="font-size: 14px;"><a class="text-secondary" href="">سوالات متداول</a></div>
+            <div class="p-2" style="font-size: 14px;"><a class="text-secondary" href="">فرصت های شغلی</a></div>
+            <div class="p-2" style="font-size: 14px;"><a class="text-secondary" href="">راهنمای خرید</a></div>
+          </div>
+          <div class="col-md-3 text-center p-2 mt-5">
+            <div class="p-2" style="font-size: 14px;"><a class="text-secondary" href="">مرکز پشتیبانی: 6415</a></div>
+            <div class="p-2" style="font-size: 14px;"><a class="text-secondary" href="">دفتر مرکزی: تهران-ستارخان- شهراارا...</a></div>
+            <div class="p-2" style="font-size: 14px;"><a class="text-secondary" href="">فرصت های شغلی</a></div>
+            <div class="p-2" style="font-size: 14px;"><a class="text-secondary" href="">ساعات کاری: از شنبه الی چهارشنبه از ساعت8.00 الی 16.00</a></div>
+          </div>
+          <div class="col-md-3 text-center p-2">
+            <img src="img/store.svg" class="w-50" alt="">
+            <h4 class="text-center">STORE</h4>
+            <p class="text-secondary">فروشگاه store از سال 1376 شروع به کار کرده و خیلی بد کار کرده و الان تازه داره درست میشه</p>
+          </div>
+          <div class="col-md-3 text-center p-2 mt-5">
+            <a href="#" class="fa fa-facebook social p-2 text-white mt-2"></a>
+            <a href="#" class="fa fa-twitter social p-2 text-white mt-2" style="background-color: #55ACEE;"></a>
+            <a href="#" class="fa fa-youtube social p-2 text-white mt-2" style="background-color: #bb0000;"></a>
+            <a href="#" class="fa fa-instagram social p-2 text-white mt-2" style="background-color: #C12B2B;"></a>
+            <a href="#" class="fa fa-facebook social p-2 text-white mt-2"></a>
+            <a href="#" class="fa fa-twitter social p-2 text-white mt-2" style="background-color: #55ACEE;"></a>
+            <a href="#" class="fa fa-youtube social p-2 text-white mt-2" style="background-color: #bb0000;"></a>
+            <a href="#" class="fa fa-instagram social p-2 text-white mt-2" style="background-color: #C12B2B;"></a>
+            <a href="#" class="fa fa-facebook social p-2 text-white mt-2"></a>
+            <a href="#" class="fa fa-twitter social p-2 text-white mt-2" style="background-color: #55ACEE;"></a>
+            <a href="#" class="fa fa-youtube social p-2 text-white mt-2" style="background-color: #bb0000;"></a>
+            <a href="#" class="fa fa-instagram social p-2 text-white mt-2" style="background-color: #C12B2B;"></a>
+
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  {% endblock footer %}
+
+
+
+
+
+
+  {% block js %}
+  <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+  <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js" integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZE3Ipu6Tp75j7Bh/kR0JKI" crossorigin="anonymous"></script>
+  <script src="https://kit.fontawesome.com/5a32a1eab1.js"></script>
+  <script>
+
+    $.ajax({
+      url: "{% url 'app_base:catlist' %}",
+      type: "GET",
+      success: function(data) {
+        if (data) {                   
+          $.each(data, function(){
+            var url = "{% url 'app_base:catdet' 123 %}";
+            var id = $(this)[0]['id']
+            url = url.replace('123', id);
+            html1 = `
+            <a class="p-2 mb-1 text-dark" id="v-pills-${$(this)[0]['id']}-tab" data-toggle="pill" href="#v-pills-${$(this)[0]['id']}" role="tab" aria-controls="v-pills-${$(this)[0]['id']}" aria-selected="true" style="font-size:13px;"><i class='${$(this)[0]['icon']} text-danger ml-1' style="font-size:13px;"></i>${$(this)[0]['name']}</a>`
+            $('#v-pills-tab').append(html1);
+            html2 = `
+            <div class="tab-pane fade show" id="v-pills-${$(this)[0]['id']}" role="tabpanel" aria-labelledby="v-pills-${$(this)[0]['id']}-tab">
+            <a href="${url}"><div class="border-bottom p-2 m-1 text-body"><i class='${$(this)[0]['icon']} text-danger ml-1'></i>${$(this)[0]['name']}</div></a>
+            <div id="v-${$(this)[0]['id']}" class="row row-cols-4">
+
+            </div>
+            </div>`
+            $('#v-pills-tabContent').append(html2);
+          });
+          $.ajax({
+            url: "{% url 'app_base:childcat' %}",
+            type: "GET",
+            success: function(data) {
+              if (data) {                   
+                $.each(data, function(){
+                  var url = "{% url 'app_base:productlist' 123 %}";
+                  var id = $(this)[0]['id']
+                  url = url.replace('123', id);
+                  html4 = `
+                  <div class="col p-1 m-1 pr-0">
+                  <ul class="pr-0">
+                  <li id="ifhavechild-${$(this)[0]['id']}" style="list-style: none;">
+                  <a href="${url}"  class="childcat text-body"><i class='fas fa-caret-left ml-1 text-danger'></i>${$(this)[0]['name']}</a>
+                  </li>
+                  </ul>
+                  </div>
+                  `
+                  html3 =`
+                  <li class="p-1" style="list-style: none;">
+                  <a href="${url}"  class="childcat text-secondary"><i class="fa fa-circle ml-1" style="font-size:3px;"></i>${$(this)[0]['name']}</a>
+                  </li>`
+
+                  $('#v-'+$(this)[0]['parent']).append(html4);
+                  $('#ifhavechild-'+$(this)[0]['parent']).append(html3);
+                });
+                $('#v-pills-tab a:first-child').addClass("active");
+                $('#v-pills-tabContent div:first-child').addClass("active"); 
+              }
+            },
+            error: function(jqXHR, textStatus, errorThrown) {
+              console.log(jqXHR);
+              console.log(textStatus);
+              console.log(errorThrown);
+            }
+          });
+        }
+      },
+      error: function(jqXHR, textStatus, errorThrown) {
+        console.log(jqXHR);
+        console.log(textStatus);
+        console.log(errorThrown);
+      }
+    });
+
+
+
+
+    $('#search').keyup(function(){
+      var searcval = $('#search').val();
+      if (searcval.length >= 2) {
+        $.get({
+          url: "{% url 'app_base:search_product' %}",
+          data: {
+            'search':  searcval,
+          },
+          success: function (response) {
+            $('#searchresults').removeClass("p-3 w-50 border bg-white serachresult"); 
+            $('#searchresults').html('');
+            $.each(response, function(){
+              var url = "{% url 'app_base:productdetails' 123 %}";
+              var id = $(this)[0]['id']
+              url = url.replace('123', id);
+              var url1 = "{% url 'app_base:productlist' 123 %}";
+              var id1 = $(this)[0]['category']
+              url1 = url1.replace('123', id1);
+              html = `
+              <div class="row p-2">
+              <span class="text-body p-2" style="font-size:13px;"><a class="text-dark" href="${url}"><i class='fas fa-caret-left ml-1 text-danger'></i>${$(this)[0]['name']}</a></span>
+              <span class="text-primary p-2" style="font-size:13px;"><span class="text-dark"><i class="fa fa-th-large ml-1 text-danger"></i>دسته بندی: </span><a href="${url1}">${$(this)[0]['catname']}</a></span>
+              </div>
+              `
+              $('#searchresults').addClass("p-3 w-50 border bg-white serachresult"); 
+              $('#searchresults').append(html)   
+            });  
+          },
+          error: function(jqXHR, textStatus, errorThrown) {
+           console.log(textStatus, errorThrown);
+         }
+       });
+      }
+      else{
+        $('#searchresults').removeClass("p-3 border w-50 bg-white serachresult"); 
+        $('#searchresults').html('');
+      }
+    });
+    $('#logout').on('click', function(event) {  
+      event.preventDefault();
+      $.post({
+        url: "http://127.0.0.1:8000/logout/",
+        headers: {
+          "Authorization": "Token"+" "+window.localStorage.getItem('token'),
+        },
+        success: function(response) {
+          window.location.replace('{% url 'account:logout' %}');
+
+        },
+        error: function(jqXHR, textStatus, errorThrown) {
+          console.log(textStatus, errorThrown, jqXHR);
+          if (jqXHR.responseJSON.detail) {
+            window.location.replace('{% url 'account:logout' %}');
+          }
+        }
+      });
+    });
+    $.ajax({
+      url: "{% url 'Sale:get_productcart' %}",
+      type: "GET",
+      headers: {
+        "Authorization": "Token"+" "+window.localStorage.getItem('token'),
+      },
+      success: function(data) {
+        if (data) {                   
+          $.each(data, function(){
+            html=`
+            <div class="row p-1">
+            <div class="col-3">
+            <img class="p-1 m-1 text-right" width="75" src="${$(this)[0]['product_img']}" alt="">
+            </div>
+            <div class="col-9">
+            <div class="p-2 m-1 text-dark text-right" style="font-size:13px;">${$(this)[0]['product_name']}</div>
+            <div class="text-secondary p-1">
+            <span class="text-secondary p-1 text-left remove" id="${$(this)[0]['id']}" style="cursor:pointer;float:left;"><i class="fa fa-trash text-danger" aria-hidden="true"></i>
+            </span>
+            <span class="text-right P-1 mr-1" style="font-size:13px;">
+            ${$(this)[0]['quantity']} عدد
+            </span>
+            </div>
+            </div>
+            </div>`
+            $('#cart-product').append(html);
+          });
+          $('#counter').append(data.length);
+        }
+        $('.remove').on('click', function(event) {  
+          event.preventDefault();
+          $.post({
+            url: "http://127.0.0.1:8000/delete-cart/",
+            data: {
+              'id':$(this).attr('id'),
+            },
+            headers: {
+              "Authorization": "Token"+" "+window.localStorage.getItem('token'),
+            },
+            success: function(response) {
+              location.reload();
+            },
+            error: function(jqXHR, textStatus, errorThrown) {
+              console.log(textStatus, errorThrown, jqXHR);
+            }
+          });
+        });
+      },
+      error: function(jqXHR, textStatus, errorThrown) {
+        console.log(jqXHR);
+        console.log(textStatus);
+        console.log(errorThrown);
+      }
+    });
+
+  </script>
+
+  {% endblock js %}
+</body>
+</html>

@@ -1,0 +1,105 @@
+{% extends "base.html" %}
+{% load static %}
+{% block content %}
+{% block nav %}
+{% endblock nav %}
+<div class="container">
+	<div class="row" style="justify-content:center;">
+		<div id="reg" class="col-md-6 m-5">
+			<div id="register" class="border bg-white m-2 p-4 shadow rounded" style="border-radius:7px;">
+				<div class="p-3 mb-2 bg-danger text-white" style="font-size:15px;border-radius:7px;">ثبت نام با شماره تلفن همراه</div>
+				<div>
+					<div class="p-2">شماره تلفن همراه:</div>
+					<input id="phonenumber" class="form-control form-control-lg" type="text" placeholder="0 9 * * * * * * * * *" style="direction:ltr;">
+				</div>
+				<a href="">
+					<div id="recive_otp" class="border bg-primary text-center text-white p-2 mt-2" style="border-radius:7px;">
+						دریافت کد تایید
+					</div>
+				</a>
+				<div class="text-danger" id="error" style="font-size:14px;"></div>
+				<div class="p-2 mt-4">
+					<span style="font-size:14px;">اگر در فروشگاه حساب کاربری دارید دکمه ورود را بزنید.</span>
+					<a class="text-decoration-none" href="{% url 'account:login_page' %}"><span class="border border-primary p-2" style="font-size:14px;border-radius:5px;">ورود به حساب کاربری</span></a>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+{% block footer %}
+{% endblock footer %}
+
+{% endblock content %}
+{% block js %}
+{{ block.super }}
+<script>
+	$('#recive_otp').on('click', function(event) { 
+		event.preventDefault();
+		$.post({
+			url: "http://127.0.0.1:8000/validation_number/",
+			data: {
+				'phonenumber':$('#phonenumber').val(),
+			},
+			success: function(response) {
+				$('#error').html('');
+				$( "#error" ).removeClass('p-2');
+				if (response.status == false) {
+					$('#error').append(response.detail);
+					$( "#error" ).addClass('p-2');
+				}
+				else{
+					$('#register').hide();
+					html=`
+					<a class="text-decoration-none" href="{% url 'account:register_page' %}"><div class="m-2 text-dark"><i class="fa fa-arrow-right ml-2"></i>بازگشت به قبل</div></a>
+					<div id="register" class="border bg-white m-2 p-4 shadow rounded" style="border-radius:7px;">
+					<div class="p-3 mb-2 bg-danger text-white" style="font-size:15px;border-radius:7px;">کد تایید ارسال شده را وارد کنید.</div>
+					<div>
+					<div class="p-2">کد تایید</div>
+					<input id="otp_number" class="form-control form-control-lg" type="text" placeholder="* * * *" style="direction:ltr;">
+					</div>
+					<a href="">
+					<div id="validate_otp" class="border bg-primary text-center text-white p-2 mt-2" style="border-radius:7px;">
+					ثبت کد 
+					</div>
+					</a>
+					<div class="text-danger" id="errorotp" style="font-size:14px;"></div>
+					<div class="p-2 mt-2">
+					<span>اگر در فروشگاه حساب کاربری ندارید ثبت نام کنید.</span>
+					<a class="text-decoration-none" href=""><span>ایجاد حساب کاربری</span></a>
+					</div>
+					</div>`
+					$('#reg').append(html);
+				}
+				$('#validate_otp').on('click', function(event) { 
+					event.preventDefault();
+					window.localStorage.setItem('userphonehistory', $('#phonenumber').val());
+					$.post({
+						url: "http://127.0.0.1:8000/validation_otp/",
+						data: {
+							'otp':$('#otp_number').val(),
+							'phonenumber':$('#phonenumber').val(),
+						},
+						success: function(response) {
+							$('#errorotp').html('');
+							$( "#errorotp" ).removeClass('p-2');
+							if (response.status == false) {
+								$('#errorotp').append(response.detail);
+								$( "#errorotp" ).addClass('p-2');
+							}
+							else if(response.status == true){
+								window.location.replace('{% url 'account:set_password' %}');
+							}
+						},
+						error: function(jqXHR, textStatus, errorThrown) {
+							console.log(textStatus, errorThrown, jqXHR);
+						}
+					});
+				});
+			},
+			error: function(jqXHR, textStatus, errorThrown) {
+				console.log(textStatus, errorThrown, jqXHR);
+			}
+		});
+	});
+</script>
+{% endblock js %}

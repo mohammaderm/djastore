@@ -1,0 +1,201 @@
+body{
+  background-color: #f0f1f5
+}
+@font-face {
+  font-family: vazir-bold;
+  src: url('../font/Vazir-Black-FD.woff') format('woff'),
+  url('../font/Vazir-Black-FD.woff2') format('woff2'),
+  url('../font/Vazir-Bold-FD') format('truetype');
+}
+
+@font-face {
+  font-family: vazir-medium;
+  src: url('../font/Vazir-Medium-FD.woff') format('woff'),
+  url('../font/Vazir-Medium-FD.woff2') format('woff2'),
+  url('../font/Vazir-Medium-FD') format('truetype');
+}
+
+@font-face {
+  font-family: vazir-thin;
+  src: url('../font/Vazir-Thin-FD.woff') format('woff'),
+  url('../font/Vazir-Thin-FD.woff2') format('woff2'),
+  url('../font/Vazir-Thin-FD') format('truetype');
+}
+
+@font-face {
+  font-family: vazir-light;
+  src: url('../font/Vazir-Light-FD.woff') format('woff'),
+  url('../font/Vazir-Light-FD.woff2') format('woff2'),
+  url('../font/Vazir-Light-FD') format('truetype');
+}
+
+i,
+body,
+div,
+h1,
+h2,
+h3,
+h4,
+h5,
+li,
+ul,
+a,
+nav,
+p,
+button {
+  font-family: vazir-medium;
+  direction: rtl;
+  text-align: justify;
+}
+
+
+
+strong,
+b {
+  font-family: vazir-bold;
+  direction: rtl;
+}
+
+h1 {
+  font-size: 36px;
+}
+
+h2 {
+  font-size: 30px;
+}
+
+h3 {
+  font-size: 24px;
+}
+
+h4 {
+  font-size: 18px;
+}
+
+h5 {
+  font-size: 14px;
+}
+
+h6 {
+  font-size: 12px;
+}
+.login{
+  border: 2px solid #c6c6c6;
+  border-radius: 5px;
+  font-size: 14px;
+  font-family: vazir-thin;
+}
+
+::-moz-placeholder {
+  font-size: 13px;
+}
+
+.navsize{
+  font-size: 13px;
+}
+
+.catdrop{
+  right: 0;
+  top: 120%;
+  min-width: 80rem;
+  border-radius: 7px !important;
+}
+
+.dropdown:hover .dropdown-menu {
+  display: block;
+}
+
+.nav-link:hover .tab-content > .tab-pane {
+  display: block;
+}
+
+.nav-pills a:hover{
+  background-color: #eee;
+  text-decoration: none;
+}
+.childcat:hover{
+  text-decoration: none; 
+}
+.childcat{
+  font-size: 13px;
+  position: relative;
+  outline: none;
+  display: block;
+  list-style: none;
+}
+.tab-pane a:hover{
+  color: #007bff !important;
+}
+.img-radius{
+  border-radius: 10px;
+}
+.more-but{
+  padding-bottom: 3px;
+  padding-top: 5px;
+  margin-top: -5px;
+}
+.textmorbut{
+  padding: 13px;
+  font-size: 14px;
+}
+.newsproduct .form-control{
+  border-radius: 2.25rem;
+}
+
+.social{
+  font-size: 26px;
+  background-color: blue;
+  border-radius: 5px;
+}
+.social:hover{
+  text-decoration: none;
+}
+.chip{
+  display: inline-block;
+  border-radius: 5px;
+}
+
+.shahover:hover{
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+  border-radius: 7px;
+}
+
+.const:hover{
+  border-color: #83dcff;
+}
+.imgborder{
+  border-color: #83dcff;
+}
+
+
+* {box-sizing: border-box;}
+
+.img-zoom-container {
+  position: relative;
+}
+
+.img-zoom-lens {
+  position: absolute;
+  border: 1px solid #d4d4d4;
+  /*set the size of the lens:*/
+  width: 40px;
+  height: 40px;
+}
+
+.img-zoom-result {
+  border: 1px solid #d4d4d4;
+  /*set the size of the result div:*/
+  width: 300px;
+  height: 300px;
+}
+.serachresult{
+  display: block;
+  position: absolute;
+  top: 54px;
+  right: 9rem;
+}
+
+
+
+
+

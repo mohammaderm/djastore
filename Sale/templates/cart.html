@@ -1,0 +1,160 @@
+{% extends "base.html" %}
+{% load static %}
+{% block content %}
+
+
+<div class="container-fluid">
+	<div class="p-2 m-2 text-dark border-bottom" style="font-size:14px;">سبد خرید</div>
+	<div class="row">
+		<div class="col-8">
+			<div id="cart-page-product" class="border bg-white m-2 p-2">
+				<div class="p-1 m-1 border-bottom" style="font-size:14px;">ارسال عادی (2)</div>
+
+				
+
+			</div>
+		</div>
+		<div class="col-4"> 
+			<div class="border bg-white m-2 p-2">
+				<div class="p-2 m-1 border-bottom">
+					<span class="text-secondary" style="font-size:14px;">قیمت کالا ها (2):</span>
+					<span class="text-secondary" style="float:left;font-size:14px;">250,000 تومان</span>
+				</div>
+				<div class="p-2 m-1 border-bottom">
+					<span class="text-secondary" style="font-size:14px;">هزینه ارسال:</span>
+					<span class="text-secondary" style="float:left;font-size:14px;">وابسته به شهر</span>
+				</div>
+				<div class="p-2 m-1">
+					<span class="text-dark" style="font-size:14px;">هزینه کل</span>
+					<span class="text-dark" style="float:left;font-size:14px;">300,000 تومان</span>
+				</div>
+				<div class="p-2 m-1">
+					<span class="text-dark" style="font-size:14px;">مبلغ قابل پرداخت</span>
+					<span class="text-dark" style="float:left;font-size:14px;">350,000 تومان</span>
+				</div>
+				<div class="border bg-danger text-center text-white p-2 m-1" style="border-radius:5px;cursor:pointer;">ثبت سفارش</div>
+			</div>
+		</div>
+	</div>
+</div>
+
+
+{% endblock content %}
+{% block js %}
+{{ block.super }}
+
+<script>
+	$.ajax({
+		url: "{% url 'Sale:get_productcart' %}",
+		type: "GET",
+		headers: {
+			"Authorization": "Token"+" "+window.localStorage.getItem('token'),
+		},
+		success: function(data) {
+			if (data) {                   
+				$.each(data, function(){
+					html=`
+					<div class="row p-4 border-bottom m-1">
+					<div class="col-3 ml-0 pl-0">
+					<img class="p-1" src="${$(this)[0]['product_img']}" width="150" alt="">
+					</div>
+					<div class="col-9 mr-0 pr-0">
+					<div class="p-1" style="font-size:14px;">${$(this)[0]['product_name']}
+					</div>
+					<div class="p-1 text-secondary" style="font-size:13px;">
+					<i class="fa fa-circle-o m-1"></i> سفید
+					</div>
+					<div class="p-1 text-secondary" style="font-size:13px;">
+					<i class="fas fa-shield-alt m-1"></i> گارانتی ۱۸ ماهه مدیاپردازش
+					</div>
+					<div class="p-1 text-secondary" style="font-size:13px;">
+					<i class="fas fa-store-alt m-1"></i> فروشگاه
+					</div>
+					<div class="p-1 text-secondary" style="font-size:13px;">
+					<i class="fa fa-truck m-1"></i> ارسال توسط فروشگاه
+					</div>
+					<div class="p-1 text-secondary">
+					<div class="border p-2 mt-2" style="width:7rem;border-radius:7px;">
+					<span class="plus" id="${$(this)[0]['id']}" style="cursor:pointer;"><i class='fas fa-plus text-primary p-1' style="float:right;"></i></span>
+					<span id="counter text-center" class="pr-3 mr-1">${$(this)[0]['quantity']}</span>
+					<span class="minus" id="${$(this)[0]['id']}" style="cursor:pointer;"><i class='fas fa-minus text-primary p-1' style="float:left;"></i></span>
+					</div>
+					</div>
+					<div class="text-center border p-1 m-1 text-secondary delete" id="${$(this)[0]['id']}" style="font-size:13px;cursor:pointer;width:5rem;float:right;border-radius:5px;"><i class="fa fa-trash text-danger ml-2" aria-hidden="true"></i> حذف</div>
+
+					<div class="p-1 text-secondary" style="font-size:14px;">
+					<div class="text-left">250,000 تومان</div>
+					</div>
+					</div>
+					</div>`
+					$('#cart-page-product').append(html);
+				});
+				$('#counter').append(data.length);
+			}
+			$('.delete').on('click', function(event) {  
+				event.preventDefault();
+				$.post({
+					url: "http://127.0.0.1:8000/delete-cart/",
+					data: {
+						'id':$(this).attr('id'),
+					},
+					headers: {
+						"Authorization": "Token"+" "+window.localStorage.getItem('token'),
+					},
+					success: function(response) {
+						location.reload();
+					},
+					error: function(jqXHR, textStatus, errorThrown) {
+						console.log(textStatus, errorThrown, jqXHR);
+					}
+				});
+			});
+			$('.plus').on('click', function(event) {  
+				event.preventDefault();
+				$.post({
+					url: "http://127.0.0.1:8000/update-cart/",
+					data: {
+						'id':$(this).attr('id'),
+						'quantity':'increase'
+					},
+					headers: {
+						"Authorization": "Token"+" "+window.localStorage.getItem('token'),
+					},
+					success: function(response) {
+						location.reload();
+					},
+					error: function(jqXHR, textStatus, errorThrown) {
+						console.log(textStatus, errorThrown, jqXHR);
+					}
+				});
+			});
+			$('.minus').on('click', function(event) {  
+				event.preventDefault();
+				$.post({
+					url: "http://127.0.0.1:8000/update-cart/",
+					data: {
+						'id':$(this).attr('id'),
+						'quantity':'decrease'
+					},
+					headers: {
+						"Authorization": "Token"+" "+window.localStorage.getItem('token'),
+					},
+					success: function(response) {
+						location.reload();
+					},
+					error: function(jqXHR, textStatus, errorThrown) {
+						console.log(textStatus, errorThrown, jqXHR);
+					}
+				});
+			});
+		},
+		error: function(jqXHR, textStatus, errorThrown) {
+			console.log(jqXHR);
+			console.log(textStatus);
+			console.log(errorThrown);
+		}
+	});	
+</script>
+
+
+{% endblock js %}

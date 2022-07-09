@@ -1,0 +1,72 @@
+{% extends "base.html" %}
+{% load static %}
+{% block content %}
+{% block nav %}
+{% endblock nav %}
+
+<div class="container">
+	<div class="row" style="justify-content:center;">
+		<div class="col-md-6 m-5">
+			<div class="border bg-white m-2 p-4 shadow rounded" style="border-radius:7px;">
+				<div class="p-3 mb-2 bg-danger text-white" style="font-size:15px;border-radius:7px;">ورود با شماره تلفن همراه.</div>
+				<div class="p-1">
+					<div class="p-2" style="font-size:15px;">شماره تلفن همراه:</div>
+					<input id="phonenumber" class="form-control form-control-lg" type="text" placeholder="0 9 * * * * * * * * *" style="direction:ltr;">
+				</div>
+				<div class="p-1">
+					<div class="p-2" style="font-size:15px;">رمز عبور</div>
+					<input id="password" class="form-control form-control-lg" type="password" placeholder="رمز عبور خود را وارد کنید" >
+				</div>
+				<a href="">
+					<div id="login" class="border bg-primary text-center text-white p-2 mt-2" style="border-radius:7px;">
+						ورود
+					</div>
+				</a>
+				<div class="text-danger" id="error" style="font-size:14px;"></div>
+				<div class="p-2"><a class="text-decoration-none" href="{% url 'account:passwordrecovery_page' %}" style="font-size:14px;">رمز عبور خود را فراموش كرده ام.</a></div>
+				<div class="p-2">
+					<span style="font-size:14px;">اگر در فروشگاه حساب کاربری ندارید ثبت نام کنید.</span>
+					<a class="text-decoration-none" href="{% url 'account:register_page' %}"><span class="border border-primary p-2" style="font-size:14px;border-radius:5px;">ایجاد حساب کاربری</span></a>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+
+{% block footer %}
+{% endblock footer %}
+
+{% endblock content %}
+{% block js %}
+{{ block.super }}
+
+<script>
+	$('#login').on('click', function(event) {  
+		event.preventDefault();
+		$('#error').html('');
+		$( "#error" ).removeClass('p-2');
+		$.post({
+			url: "http://127.0.0.1:8000/login/",
+			data: {
+				'phone':$('#phonenumber').val(),
+				'password':$('#password').val(),
+			},
+			success: function(response) {
+				window.localStorage.setItem('token', response.token);
+				window.location.replace('{% url 'app_base:home' %}');
+			},
+			error: function(jqXHR, textStatus, errorThrown) {
+				console.log(textStatus, errorThrown, jqXHR);
+				if (jqXHR.responseJSON.detail) {
+					$('#error').append(jqXHR.responseJSON.detail);
+					$( "#error" ).addClass('p-2');  
+				}
+			}
+		});
+	});
+</script>
+
+
+
+
+{% endblock js %}

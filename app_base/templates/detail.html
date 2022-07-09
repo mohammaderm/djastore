@@ -1,0 +1,642 @@
+{% extends "base.html" %}
+{% load static %}
+{% block content %}
+
+
+
+<div class="section">
+  <div class="container-fluid">
+    <nav aria-label="breadcrumb" style="font-size: 13px;">
+      <ol class="breadcrumb p-2 m-1">
+        <li class="breadcrumb-item"><a href="#">فروشگاه store</a></li>
+        <li class="breadcrumb-item"><a href="#">کالای دیجیتال</a></li>
+        <li class="breadcrumb-item"><a href="">موبایل</a></li>
+        <li class="breadcrumb-item active" aria-current="page">گوشی موبایل</li>
+      </ol>
+    </nav>
+    <div class="border bg-white p-4 m-2">
+      <div class="row">
+        <div class="col-3 border-left">
+          <div class="p-1">
+            <img id="primary_image" src="" class="w-100 p-2 border-bottom" alt="">
+          </div>
+          <div id="images" class="row p-2">
+
+          </div>
+
+        </div>
+        <div class="col-6">
+          <div id="name"></div>
+          <div id="en_name" class="text-secondary p-2 border-bottom mb-3" style="font-size: 12px;"></div>
+          <div> 
+
+            <div class="mb-2">
+              <span class="p-2  mt-2" style="font-size: 12px;">دسته بندی: <a id="category" href=""></a></span>
+              <span class="p-2  mt-2" style="font-size: 12px;">دیدگاه کاربران: 25,354</span>
+            </div>
+
+            <div>
+              <span class="p-2 m-1" style="font-size: 12px;">
+                <span>امتیاز: </span>
+                <span class="fa fa-star text-warning"></span>
+                <span class="fa fa-star text-warning"></span>
+                <span class="fa fa-star text-warning"></span>
+                <span class="fa fa-star"></span>
+                <span class="fa fa-star"></span>
+              </span>
+              <span class="p-2 m-1" style="font-size: 12px;">
+                برند: <a id="brand" href=""></a>
+              </span>
+            </div>
+
+            <div class="p-2 m-1 mt-5" style="font-size:12px;"> رنگ کالا:
+
+              <a class="text-body" href=""><span class="border p-2 mr-2" style='font-size:14px'>ابی<i class='fas fa-circle mr-2 text-primary' style='font-size:14px'></i></span></a>
+
+              <a class="text-body" href=""><span class="border p-2 mr-2" style='font-size:14px'>نقره ای<i class='fas fa-circle mr-2 text-secondary' style='font-size:14px'></i></span></a>
+
+              <a class="text-body" href=""><span class="border p-2 mr-2" style='font-size:14px'>قرمز<i class='fas fa-circle mr-2 text-danger' style='font-size:14px'></i></span></a>
+            </div>
+
+
+            <div id="genspecif" class="mt-2 p-2 m-1 text-right" style="font-size: 12px;">
+              ویژگی های محصول: 
+              
+            </div>
+
+            <div class="p-2 m-1 mt-3 text-secondary" style="font-size:12px;"><i class="fa fa-warning ml-2" style="font-size:15px"></i>هشدار سامانه همتا: حتما در زمان تحویل دستگاه، به کمک کد فعال‌سازی چاپ شده روی جعبه یا کارت گارانتی، دستگاه را از طریق #7777*، برای سیم‌کارت خود فعال‌سازی کنید. آموزش تصویری در آدرس اینترنتی hmti.ir/05 </div>
+
+          </div>
+        </div>
+        <div class="col-3">
+
+          <div class="p-2 text-left">
+            <span class="ml-2 mr-2"><a class="text-secondary" href=""><i id="like" class='far fa-heart' style='font-size:18px'></i></a></span>
+            <span class="ml-2 mr-2"><a class="text-secondary" href=""><i id="share" data-content="کپی شد" data-placement="bottom" class='fas fa-share-alt' style='font-size:18px'></i></a></span>
+            <span class="ml-2 mr-2"><a class="text-secondary" href=""><i id="bookmark" class="fa fa-bookmark-o" style="font-size:18px"></i></a></span>
+          </div>
+
+          <div class="border shadow p-3 mb-5 bg-white rounded" style="margin-top: 4rem;">
+            <div id="seller" class="p-2 m-1" style="font-size:12px;"><i class='far fa-handshake ml-1' style='font-size:24px;color: #143445;'></i>
+              فروشنده: 
+              <!-- <a href="" style="font-size: 18px;"><span>نوين ماركت</span></a> -->
+            </div>
+            <div class="p-2 m-1" style="font-size: 12px;"><i class='fas fa-cube ml-1' style='font-size:24px;color: #143445;'></i>موجودی در انباره:
+              <span style="font-size: 18px;">24</span>
+            عدد</div>
+            <div class="p-2 m-1" style="font-size:12px;"><i class='fas fa-user-shield ml-1' style='font-size:24px;color: #143445;'></i>گارانتي: 
+              <span style="font-size:18px;">۱۸ ماهه کاوش تیم</span>
+            </div>
+            <div class="p-2 m-1" style="font-size:12px;"><i class="fa fa-money ml-1" style="font-size:24px"></i>قيمت: 
+              <span id="pricenumber" class="text-info" style="font-size:18px;"></span>
+              تومان
+            </div>
+            <div class="text-center p-2 m-2">
+              <a class="btn btn-primary w-100 text-center cartproduct" href="">افزودن به سبد خريد<i class='fas fa-cart-plus text-white ml-2 mr-2' style="font-size:20px;"></i></a>
+            </div>
+
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+
+
+
+<div class="section">
+  <div class="container-fluid">
+    <div class="border bg-white p-4 m-2">
+      <div class="row">
+        <div class="col-3 border-left">
+          <div class="nav flex-column nav-pills" id="v-pills-tab" role="tablist" aria-orientation="vertical">
+
+
+            <a class="nav-link active border-bottom p-3" id="v-pills-home-tab" data-toggle="pill" href="#v-pills-homes" role="tab" aria-controls="v-pills-home" aria-selected="true" style="font-size:14px;"><i class='fas fa-glasses ml-2' style='font-size:20px'></i>نقد و بررسی</a>
+
+
+            <a class="nav-link border-bottom p-3" id="v-pills-profile-tab" data-toggle="pill" href="#v-pills-profiles" role="tab" aria-controls="v-pills-profile" aria-selected="false" style="font-size:14px;"><i class='fas fa-list ml-2' style='font-size:20px'></i>مشخصات</a>
+
+
+
+            <a class="nav-link border-bottom p-3" id="v-pills-messages-tab" data-toggle="pill" href="#v-pills-messagess" role="tab" aria-controls="v-pills-messages" aria-selected="false" style="font-size:14px;"><i class='far fa-comment-alt ml-2' style='font-size:20px'></i>نظرات کاربران</a>
+
+
+            <a class="nav-link border-bottom p-3" id="v-pills-settings-tab" data-toggle="pill" href="#v-pills-settingss" role="tab" aria-controls="v-pills-settings" aria-selected="false" style="font-size:14px;"><i class='far fa-comments ml-2' style='font-size:20px'></i>پرسش و پاسخ</a>
+
+
+          </div>
+        </div>
+        <div class="col-9">
+          <div class="tab-content border p-3" id="v-pills-tabContent">
+
+
+            <div class="tab-pane fade show active" id="v-pills-homes" role="tabpanel" aria-labelledby="v-pills-home-tab">
+              <p id="description" style="line-height: 3rem;"></p>
+            </div>
+
+
+            <div class="tab-pane fade" id="v-pills-profiles" role="tabpanel" aria-labelledby="v-pills-profile-tab">
+
+
+
+
+            </div>
+
+
+
+            <div class="tab-pane fade" id="v-pills-messagess" role="tabpanel" aria-labelledby="v-pills-messages-tab">
+
+
+
+              <nav aria-label="...">
+                <ul class="pagination justify-content-center">
+                  <li class="page-item m-2">
+                    <span class="page-link">صفحه قبل</span>
+                  </li>
+                  <li class="page-item m-2"><a class="page-link" href="#">1</a></li>
+                  <li class="page-item active m-2" aria-current="page">
+                    <span class="page-link">
+                      2
+                      <span class="sr-only">(current)</span>
+                    </span>
+                  </li>
+                  <li class="page-item m-2"><a class="page-link" href="#">3</a></li>
+                  <li class="page-item m-2">
+                    <a class="page-link" href="#">صفحه بعد</a>
+                  </li>
+                </ul>
+              </nav>
+
+
+            </div>
+
+
+            <div class="tab-pane fade" id="v-pills-settingss" role="tabpanel" aria-labelledby="v-pills-settings-tab">
+
+              <div class="p-2 bg-light border p-3">
+                <div class="text-dark p-2" style="font-size:16px;"><i class="text-danger fa fa-flag ml-2" aria-hidden="true"></i>
+                عنوان نظر شما:</div>
+                <input class="form-control w-50 mr-3 mb-3" type="text" placeholder="تیتر نظر خود را وارد کنید">
+                <div class="text-dark p-2" style="font-size:16px;"><i class='text-danger fas fa-edit ml-2'></i>متن نظر شما (اجباری):</div>
+                <textarea id="address-val" class="form-control w-75 mr-3" placeholder="متن کامنت را وارد کنید."></textarea>
+                <div class="m-3 p-2 border text-center bg-success text-white" style="font-size:15px;width:10rem;border-radius:5px;cursor:pointer;">ثبت نظر</div>
+              </div>
+
+            </div>
+
+
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+
+
+<div class="section">
+  <div class="container-fluid">
+    <div class="border border-primary p-3 mb-2 text-white bg-primary" style="border-radius: 5px;">
+      <span class="text-right" style="border-bottom: 3px solid white;padding-bottom: 14px;"><i class='fas fa-eye text-white ml-1' style="font-size:13px;"></i>محصولات مشابه</span>
+    </div>
+
+
+    <div class="border bg-white p-4 m-4">
+
+      <div class="row">
+
+        <div class="col" style="margin-bottom: -29px;">
+          <div class="card-offer shadow p-1 bg-white rounded" style="border-radius: 25px!important;">
+            <div class="topcard p-3">
+              <div class="text-white float-left badge badge-pill badge-danger" style='font-size:15px'>20<i class='fas fa-percentage' style='font-size:15px'></i></div>
+              <div class="float-right">
+                <a href=""><i class='fas fa-cart-plus' style='font-size:24px'></i></a>
+              </div>
+            </div>
+            <img src="img/sd.jpg" width="100%" class="p-1 img-radius" alt="...">
+
+            <div class="text-center" style="font-size: 13px;">
+              تی شرت مردانه طرح لیورپول کد 7A1 
+            </div>
+            <div class="p-3">
+              <div class="orginal-price text-left text-danger" style="text-decoration:line-through;font-family: vazir-thin;">
+               120,000 تومان
+             </div>
+             <div class="offer=price text-left" style="font-size: 25px;">
+              100,000 <span style="font-family: vazir-thin;font-size: 15px;">تومان</span>
+            </div>
+          </div>  
+
+          <div class="w-100 border border-primary text-center text-primary p-1" style="border-radius: 25px!important;">12:20:35 <i class="fa fa-clock-o" style="font-size:15px"></i></div>         
+        </div>
+      </div>
+
+
+      <div class="col" style="margin-bottom: -29px;">
+        <div class="card-offer shadow p-1 mb-5 bg-white rounded" style="border-radius: 25px!important;">
+          <div class="topcard p-3">
+            <div class="text-white float-left badge badge-pill badge-danger" style='font-size:15px'>20<i class='fas fa-percentage' style='font-size:15px'></i></div>
+            <div class="float-right">
+              <a href=""><i class='fas fa-cart-plus' style='font-size:24px'></i></a>
+            </div>
+          </div>
+          <img src="img/sd.jpg" width="100%" class="p-1 img-radius" alt="...">
+
+          <div class="text-center" style="font-size: 13px;">
+            تی شرت مردانه طرح لیورپول کد 7A1 
+          </div>
+          <div class="p-3">
+            <div class="orginal-price text-left text-danger" style="text-decoration:line-through;font-family: vazir-thin;">
+             120,000 تومان
+           </div>
+           <div class="offer=price text-left" style="font-size: 25px;">
+            100,000 <span style="font-family: vazir-thin;font-size: 15px;">تومان</span>
+          </div>
+        </div>  
+
+        <div class="w-100 border border-primary text-center text-primary p-1" style="border-radius: 25px!important;">12:20:35 <i class="fa fa-clock-o" style="font-size:15px"></i></div>         
+      </div>
+    </div>
+
+
+    <div class="col" style="margin-bottom: -29px;">
+      <div class="card-offer shadow p-1 mb-5 bg-white rounded" style="border-radius: 25px!important;">
+        <div class="topcard p-3">
+          <div class="text-white float-left badge badge-pill badge-danger" style='font-size:15px'>20<i class='fas fa-percentage' style='font-size:15px'></i></div>
+          <div class="float-right">
+            <a href=""><i class='fas fa-cart-plus' style='font-size:24px'></i></a>
+          </div>
+        </div>
+        <img src="img/bv.jpg" width="100%" class="p-1 img-radius" alt="...">
+
+        <div class="text-center" style="font-size: 13px;">
+          تی شرت مردانه طرح لیورپول کد 7A1 
+        </div>
+        <div class="p-3">
+          <div class="orginal-price text-left text-danger" style="text-decoration:line-through;font-family: vazir-thin;">
+           120,000 تومان
+         </div>
+         <div class="offer=price text-left" style="font-size: 25px;">
+          100,000 <span style="font-family: vazir-thin;font-size: 15px;">تومان</span>
+        </div>
+      </div>  
+
+      <div class="w-100 border border-primary text-center text-primary p-1" style="border-radius: 25px!important;">12:20:35 <i class="fa fa-clock-o" style="font-size:15px"></i></div>         
+    </div>
+  </div>
+
+  <div class="col" style="margin-bottom: -29px;">
+    <div class="card-offer shadow p-1 mb-5 bg-white rounded" style="border-radius: 25px!important;">
+      <div class="topcard p-3">
+        <div class="text-white float-left badge badge-pill badge-danger" style='font-size:15px'>20<i class='fas fa-percentage' style='font-size:15px'></i></div>
+        <div class="float-right">
+          <a href=""><i class='fas fa-cart-plus' style='font-size:24px'></i></a>
+        </div>
+      </div>
+      <img src="img/vf.jpg" width="100%" class="p-1 img-radius" alt="...">
+
+      <div class="text-center" style="font-size: 13px;">
+        تی شرت مردانه طرح لیورپول کد 7A1 
+      </div>
+      <div class="p-3">
+        <div class="orginal-price text-left text-danger" style="text-decoration:line-through;font-family: vazir-thin;">
+         120,000 تومان
+       </div>
+       <div class="offer=price text-left" style="font-size: 25px;">
+        100,000 <span style="font-family: vazir-thin;font-size: 15px;">تومان</span>
+      </div>
+    </div>  
+
+    <div class="w-100 border border-primary text-center text-primary p-1" style="border-radius: 25px!important;">12:20:35 <i class="fa fa-clock-o" style="font-size:15px"></i></div>         
+  </div>
+</div>
+
+<div class="col" style="margin-bottom: -29px;">
+  <div class="card-offer shadow p-1 mb-5 bg-white rounded" style="border-radius: 25px!important;">
+    <div class="topcard p-3">
+      <div class="text-white float-left badge badge-pill badge-danger" style='font-size:15px'>20<i class='fas fa-percentage' style='font-size:15px'></i></div>
+      <div class="float-right">
+        <a href=""><i class='fas fa-cart-plus' style='font-size:24px'></i></a>
+      </div>
+    </div>
+    <img src="img/xs.jpg" width="100%" class="p-1 img-radius" alt="...">
+
+    <div class="text-center" style="font-size: 13px;">
+      تی شرت مردانه طرح لیورپول کد 7A1 
+    </div>
+    <div class="p-3">
+      <div class="orginal-price text-left text-danger" style="text-decoration:line-through;font-family: vazir-thin;">
+       120,000 تومان
+     </div>
+     <div class="offer=price text-left" style="font-size: 25px;">
+      100,000 <span style="font-family: vazir-thin;font-size: 15px;">تومان</span>
+    </div>
+  </div>  
+
+  <div class="w-100 border border-primary text-center text-primary p-1" style="border-radius: 25px!important;">12:20:35 <i class="fa fa-clock-o" style="font-size:15px"></i></div>         
+</div>
+</div>
+
+</div>
+</div>
+
+<!-- <a href=""><div class="border border-primary text-center p-3 text-white bg-primary rounded">نمایش بیشتر</div></a> -->
+</div>
+</div>
+
+
+
+
+{% endblock content %}
+{% block js %}
+{{ block.super }}
+
+<script>
+  bookmarkdisplay()
+  likedisplay()
+  $.ajax({
+    url: "{% url 'app_base:productinfo' %}?id={{product_id}}",
+    type: "GET",
+    success: function(data) {
+      console.log(data);
+      if (data) {  
+        $.each(data.items, function(){
+          html = `
+          <img id="${$(this)[0]['id']}" src="${$(this)[0]['image']}" class="p-3 m-1 img-thumbnail const img-${$(this)[0]['id']}" alt="" style="width: 30%;">`
+          $('#images').append(html);
+        });
+        $.each(data.seller, function(){
+          html1=`
+          <a class="text-danger" href="" style="font-size: 15px;"><div class="p-1 mr-2">${$(this)[0]['name']}</div></a>`
+          $('#seller').append(html1);
+        });
+        $.each(data.attrarname_set, function(key, value){
+          html2=`
+          <div class="p-2 m-2" style="font-size:14px;"><i class='fas fa-angle-left ml-1 text-danger' style='font-size:15px'></i>${value.name}</div>
+          <div id="keyvaluinfo-${value.id}" class="row">
+          </div>`
+          $('#v-pills-profiles').append(html2);
+          $.each(value.attrar_set, function(key, value){
+            html3=`
+            <div class="col-3">
+            <div class="border p-2 m-1 bg-light" style="font-size:14px;font-family: vazir-thin;color: black;">${value.key}</div>
+            </div>
+            <div class="col-9">
+            <div class="border p-2 m-1 bg-light" style="font-size:14px;font-family: vazir-thin;color: black;">${value.value}</div>
+            </div>`
+            $('#keyvaluinfo-'+ value.attrarname).append(html3);
+          });   
+        });
+        $.each(data.specificationsvalue, function(key, value){
+          if (value.generalspecifications.name != 'رنگ') {
+            html4=`
+            <span class="chip border p-2 m-1 text-center">${value.generalspecifications.name}: <span>${value.name}</span></span>`
+            $('#genspecif').append(html4);
+          }
+        });
+        $('#name').append(data.name);
+        $('#en_name').append(data.eng_name);
+        $('#brand').append(data.brandname);
+        $('#description').append(data.description);
+        $('#pricenumber').append(data.pricenumber);
+        $('#primary_image').attr('src',data.primary_image); 
+        $('#category').append(data.catname);
+        var url1 = "{% url 'app_base:productlist' 123 %}";
+        var id1 = data.category
+        url1 = url1.replace('123', id1);
+        $('#category').attr('href',url1); 
+      }
+      $( ".const" ).click(function() {
+        $( ".const" ).removeClass('imgborder');
+        $(".img-"+$(this).attr('id')).addClass('imgborder');
+        $('#primary_image').attr('src',$(".img-"+$(this).attr('id')).attr('src'));
+        $(".img-"+$(this).attr('id')).attr('src', $('#primary_image').attr('src'));
+      });
+    },
+    error: function(jqXHR, textStatus, errorThrown) {
+      console.log(jqXHR);
+      console.log(textStatus);
+      console.log(errorThrown);
+    }
+  });
+  $('.cartproduct').on('click', function(event) {  
+    event.preventDefault();
+    $.post({
+      url: "http://127.0.0.1:8000/add-cart/",
+      headers: {
+        "Authorization": "Token"+" "+window.localStorage.getItem('token'),
+      },
+      data: {
+        'id':{{product_id}},
+        'quantity':1,
+      },
+      success: function(response) {
+        location.reload();
+      },
+      error: function(jqXHR, textStatus, errorThrown) {
+        console.log(textStatus, errorThrown, jqXHR);
+      }
+    });
+  });
+  function likedisplay(){
+    $.post({
+      url: "{% url 'social:likedisplay' %}",
+      data:{
+        "id":{{product_id}},
+      },
+      headers: {
+        "Authorization": "Token"+" "+window.localStorage.getItem('token'),
+      },
+      success: function(response) {
+        if (response.status == true) {
+          $('#like').removeClass('far').addClass('fa text-danger');
+        }
+        else{
+          $('#like').removeClass('fa text-danger').addClass('far');
+        }
+      },
+      error: function(jqXHR, textStatus, errorThrown) {
+        console.log(textStatus, errorThrown, jqXHR);
+      }
+    });
+  }
+  function bookmarkdisplay(){
+    $.post({
+      url: "{% url 'social:bookmarkdisplay' %}",
+      data:{
+        "id":{{product_id}},
+      },
+      headers: {
+        "Authorization": "Token"+" "+window.localStorage.getItem('token'),
+      },
+      success: function(response) {
+        if (response.status == true) {
+          $('#bookmark').removeClass('fa-bookmark-o').addClass('fa-bookmark text-warning');
+        }
+        else{
+          $('#bookmark').removeClass('fa-bookmark text-warning').addClass('fa-bookmark-o');
+        }
+      },
+      error: function(jqXHR, textStatus, errorThrown) {
+        console.log(textStatus, errorThrown, jqXHR);
+      }
+    });
+  }
+  $('#like').on('click', function(event) {
+    event.preventDefault();
+    $.post({
+      url: "{% url 'social:like' %}",
+      data:{
+        "id":{{product_id}},
+      },
+      headers: {
+        "Authorization": "Token"+" "+window.localStorage.getItem('token'),
+      },
+      success: function(response) {
+        if (response.status == true) {
+          likedisplay()
+        }
+      },
+      error: function(jqXHR, textStatus, errorThrown) {
+        console.log(textStatus, errorThrown, jqXHR);
+      }
+    });
+  });
+  $('#bookmark').on('click', function(event) {
+    event.preventDefault();
+    $.post({
+      url: "{% url 'social:bookmark' %}",
+      data:{
+        "id":{{product_id}},
+      },
+      headers: {
+        "Authorization": "Token"+" "+window.localStorage.getItem('token'),
+      },
+      success: function(response) {
+        if (response.status == true) {
+          bookmarkdisplay()
+        }
+      },
+      error: function(jqXHR, textStatus, errorThrown) {
+        console.log(textStatus, errorThrown, jqXHR);
+      }
+    });
+  });
+  $('#share').on('click', function(event) {
+    event.preventDefault();
+    var url = window.location.href;
+    var urls = document.createElement("input");
+    urls.setAttribute("value", url);
+    document.body.appendChild(urls);
+    urls.select();
+    document.execCommand("copy");
+    document.body.removeChild(urls);
+    $('#share').popover('show');
+    setTimeout(function () {
+      $('#share').popover('hide');
+    }, 1000); 
+  });
+  $('#v-pills-messages-tab').on('click', function(event) {
+    $('#v-pills-messagess').html('');
+    html1=`
+    <div class="text-center p-2 m-2 addcumment border" style="font-size:15px;cursor:pointer;width:10rem;"><i class="far fa-comment-alt ml-2 text-danger"></i>افزودن نظر جدید</div>
+
+    <div id="msg"></div>
+
+    <div id="addcumment" class="p-2 border p-3" style="display:none;">
+    <div class="text-dark p-2" style="font-size:13px;"><i class="text-danger fa fa-flag ml-2" aria-hidden="true"></i>
+    عنوان نظر شما:</div>
+    <input id="title-value" class="form-control w-50 mr-3 mb-3" type="text" placeholder="تیتر نظر خود را وارد کنید">
+    <div class="text-dark p-2" style="font-size:13px;"><i class='text-danger fas fa-edit ml-2'></i>متن نظر شما (اجباری):</div>
+    <textarea id="cumment-value" class="form-control w-75 mr-3" placeholder="متن کامنت را وارد کنید."></textarea>
+    <div id="cumment-submit" class="m-3 p-2 border text-center text-dark" style="font-size:14px;width:10rem;border-radius:5px;cursor:pointer;border-color:#28af96 !important;"><i class="ml-2 text-success fa fa-send-o"></i>ارسال نظر</div>
+    </div>`
+    $('#v-pills-messagess').append(html1);
+    $(".addcumment").click(function(event){
+      event.preventDefault();
+      $("#addcumment").fadeToggle();
+    });
+    $("#cumment-submit").click(function(event){
+      $('#msg').removeClass('text-danger p-2')
+      $('#msg').html('');
+      event.preventDefault();
+      $.post({
+        url: "http://127.0.0.1:8000/add-cummnet/",
+        data: {
+          'id':{{product_id}},
+          'cumment':$('#cumment-value').val(),
+          'title':$('#title-value').val()
+        },
+        headers: {
+          "Authorization": "Token"+" "+window.localStorage.getItem('token'),
+        },
+        success: function(response) {
+          if (response.status == true) {
+            $('#cumment-value').val(' ');
+            $('#title-value').val(' ');
+            $('#msg').addClass('text-success p-2').append(response.detail).fadeOut(2500)
+          }
+        },
+        error: function(jqXHR, textStatus, errorThrown) {
+          console.log(textStatus, errorThrown, jqXHR);
+          if (jqXHR.responseJSON.detail == "Invalid token.") {
+            $('#msg').addClass('text-danger p-2').append("برای ثبت دیدگاه ابتدا در سایت ثبت نام کنید.").fadeOut(2500)
+          }
+        }
+      });
+    });
+    $.ajax({
+      url: "{% url 'social:cummentdisplay' %}?id={{product_id}}",
+      type: "GET",
+      success: function(data) {
+        if (data) {
+          $.each(data, function(){
+            html=`
+            <div class="border-bottom p-4 m-3">
+            <div class="row ">
+            <div class="col-3">
+            <div class="p-2 m-1" style="font-size: 14px;">${$(this)[0]['userfullname']}</div>
+            <div class="p-2 m-1" style="font-size: 12px;">
+            <div class="p-1 mb-1">در تاریخ </div>
+            <span>${$(this)[0]['publish_date']}</span>
+            </div>
+            </div>
+            <div class="col-9">
+            <div class="border-bottom p-2 m-1 text-secondary" style="font-size: 20px;">${$(this)[0]['title']}</div>
+            <div class="p-2 m-1 text-body" style="font-size: 14px;">
+            ${$(this)[0]['value']}
+            </div>
+
+            <div class="p-2 m-1 text-secondary mt-4" style="font-size: 14px;">
+            <span>ایا این نظربرای شما مفید بود؟ </span>
+            <span class="border p-2 mr-2" style="padding-left: 15px !important;padding-right: 15px !important;border-radius: 7px;"><a class="text-body" href="" style="text-decoration: none;">بله</a></span>
+            <span class="border p-2 mr-2" style="padding-left: 15px !important;padding-right: 15px !important;border-radius: 7px;"><a class="text-body" href="" style="text-decoration: none;">خیر</a></span>
+            </div>
+            </div>
+            </div>
+            </div>`
+            $('#v-pills-messagess').append(html);
+          });
+        }
+        else{
+          $('#v-pills-messagess').append('هیچ نظری برای نمایش وجود ندارد.');
+        }
+      },
+      error: function(jqXHR, textStatus, errorThrown) {
+        console.log(jqXHR);
+        console.log(textStatus);
+        console.log(errorThrown);
+      }
+    });
+  });
+
+
+</script>
+
+
+
+{% endblock js %}
